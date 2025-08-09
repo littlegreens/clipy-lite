@@ -1,0 +1,273 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Google Fonts - Roboto per Material Design */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Google Material Icons */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Material Design 3 Base */
+:root {
+  --md-sys-color-primary: #1976d2;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-surface: #fefbff;
+  --md-sys-color-on-surface: #1c1b1f;
+  --md-sys-color-surface-variant: #f4eff4;
+  --md-sys-color-on-surface-variant: #49454f;
+  --md-sys-color-outline: #79757f;
+  --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --md-elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  --md-elevation-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* Base Styles */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface);
+}
+
+/* Material Design Components */
+.md-card {
+  background: var(--md-sys-color-surface);
+  border-radius: 12px;
+  box-shadow: var(--md-elevation-1);
+  transition: box-shadow 0.2s ease;
+}
+
+.md-card:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+.md-fab {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--md-elevation-3);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.md-fab:hover {
+  transform: scale(1.05);
+}
+
+.md-fab:active {
+  transform: scale(0.95);
+}
+
+.md-button {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+.md-button:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+.md-button-outline {
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 20px;
+  padding: 10px 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.md-text-field {
+  background: var(--md-sys-color-surface-variant);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 4px;
+  padding: 12px;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.md-text-field:focus {
+  outline: none;
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+/* Rich Editor Styles */
+.ProseMirror {
+  outline: none;
+  padding: 12px;
+  min-height: 200px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+}
+
+.ProseMirror h1, .ProseMirror h2, .ProseMirror h3 {
+  font-weight: 500;
+  margin: 12px 0 6px 0;
+}
+
+.ProseMirror h1 { font-size: 2rem; }
+.ProseMirror h2 { font-size: 1.5rem; }
+.ProseMirror h3 { font-size: 1.25rem; }
+
+.ProseMirror p {
+  margin: 8px 0;
+}
+
+.ProseMirror a {
+  color: var(--md-sys-color-primary);
+  text-decoration: underline;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.ProseMirror .youtube-embed {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  margin: 12px 0;
+}
+
+.ProseMirror .youtube-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Mobile-first responsive */
+.mobile-container {
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--md-sys-color-outline);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--md-sys-color-on-surface-variant);
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Margin per media nell'editor e visualizzazione */
+.ProseMirror img,
+.ProseMirror iframe,
+div[dangerouslySetInnerHTML] img,
+div[dangerouslySetInnerHTML] iframe {
+  margin-top: 1.5rem !important;
+  margin-bottom: 0 !important;
+}
+
+/* Primo elemento senza margin top */
+.ProseMirror > *:first-child img,
+.ProseMirror > *:first-child iframe,
+div[dangerouslySetInnerHTML] > *:first-child img,
+div[dangerouslySetInnerHTML] > *:first-child iframe {
+  margin-top: 0 !important;
+}
+
+/* Focus per l'editor */
+.ProseMirror {
+  outline: none;
+  padding: 8px !important;
+  background: white !important;
+  border: none !important;
+}
+
+/* Permetti di scrivere dopo immagini/video */
+.ProseMirror img,
+.ProseMirror iframe {
+  margin-bottom: 1em !important;
+}
+
+/* Stile per immagini selezionabili nell'editor */
+.ProseMirror img:hover {
+  opacity: 0.8;
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Video YouTube funzionanti */
+.ProseMirror iframe[src*="youtube"],
+.ProseMirror iframe[src*="youtu.be"] {
+  pointer-events: auto !important;
+  border: none !important;
+}
+
+.ProseMirror iframe.ProseMirror-selectednode {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Assicura che i video siano cliccabili */
+.ProseMirror div[data-youtube-video] {
+  pointer-events: auto !important;
+}
+
+.ProseMirror div[data-youtube-video] iframe {
+  pointer-events: auto !important;
+  width: 100% !important;
+  height: 200px !important;
+}
+
+/* Margin specifico per immagini e video */
+img.w-full.max-w-md,
+div[data-youtube-video] {
+  margin-top: 24px !important;
+  margin-bottom: 0 !important;
+}

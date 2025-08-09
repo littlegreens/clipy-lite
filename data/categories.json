@@ -1,0 +1,88 @@
+{
+  "categories": [
+    {
+      "id": "shopping",
+      "name": "Spesa",
+      "icon": "shopping_cart",
+      "color": "#4caf50",
+      "description": "Lista della spesa e acquisti"
+    },
+    {
+      "id": "travel",
+      "name": "Viaggi",
+      "icon": "flight",
+      "color": "#2196f3",
+      "description": "Destinazioni, hotel, itinerari"
+    },
+    {
+      "id": "home",
+      "name": "Casa",
+      "icon": "home",
+      "color": "#ff9800",
+      "description": "Progetti casa, riparazioni, arredamento"
+    },
+    {
+      "id": "gifts",
+      "name": "Regali",
+      "icon": "card_giftcard",
+      "color": "#e91e63",
+      "description": "Idee regalo e occasioni speciali"
+    },
+    {
+      "id": "entertainment",
+      "name": "Intrattenimento",
+      "icon": "movie",
+      "color": "#9c27b0",
+      "description": "Film, serie TV, spettacoli"
+    },
+    {
+      "id": "restaurants",
+      "name": "Ristoranti",
+      "icon": "restaurant",
+      "color": "#f44336",
+      "description": "Locali da provare, recensioni"
+    },
+    {
+      "id": "activities",
+      "name": "Attività",
+      "icon": "sports_esports",
+      "color": "#00bcd4",
+      "description": "Eventi, sport, tempo libero"
+    },
+    {
+      "id": "books",
+      "name": "Libri",
+      "icon": "menu_book",
+      "color": "#8bc34a",
+      "description": "Letture consigliate, recensioni"
+    },
+    {
+      "id": "health",
+      "name": "Salute",
+      "icon": "local_hospital",
+      "color": "#009688",
+      "description": "Appuntamenti medici, benessere"
+    },
+    {
+      "id": "fitness",
+      "name": "Fitness",
+      "icon": "fitness_center",
+      "color": "#ff5722",
+      "description": "Palestra, sport, allenamenti"
+    },
+    {
+      "id": "work",
+      "name": "Lavoro",
+      "icon": "work",
+      "color": "#607d8b",
+      "description": "Progetti, opportunità, networking"
+    },
+    {
+      "id": "dreams",
+      "name": "Progetti",
+      "icon": "lightbulb",
+      "color": "#673ab7",
+      "description": "Sogni e progetti futuri"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": "user1",
+      "email": "gab.verdini@gmail.com",
+      "password": "123456789",
+      "name": "Mimmo",
+      "avatar": "👤",
+      "color": "#0ea5e9"
+    },
+    {
+      "id": "user2", 
+      "email": "elisa.dadduzio@gmail.com",
+      "password": "123456789",
+      "name": "Mimmi",
+      "avatar": "💕",
+      "color": "#ec4899"
+    }
+  ]
+}
