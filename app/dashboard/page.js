@@ -27,7 +27,6 @@ export default function Dashboard() {
     }
 
     const parsedData = JSON.parse(userData)
-    console.log('Dati utente caricati:', parsedData)
     setUser(parsedData.user || parsedData)
     loadData()
   }, [router])

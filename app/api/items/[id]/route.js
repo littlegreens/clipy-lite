@@ -1,4 +1,4 @@
-import { getItems, updateItem, deleteItem, cleanupItemImages, saveImageFile } from '../../../../lib/data'
+import { getItems, updateItem, deleteItem } from '../../../../lib/data'
 
 export async function GET(request, { params }) {
   try {
@@ -28,25 +28,8 @@ export async function PUT(request, { params }) {
     const { id } = await params
     const updates = await request.json()
 
-    // Processa il contenuto per salvare le immagini come file
+    // Su Netlify manteniamo le immagini come Base64 nel JSON
     let processedContent = updates.content
-    
-    if (processedContent) {
-      // Trova tutte le immagini data URL nel contenuto
-      const dataUrlMatches = processedContent.match(/src="data:image\/[^"]+"/g)
-      
-      if (dataUrlMatches) {
-        for (const match of dataUrlMatches) {
-          const dataUrl = match.replace(/src="|"/g, '')
-          const filePath = saveImageFile(dataUrl, id)
-          
-          if (filePath) {
-            // Sostituisci il data URL con il path del file
-            processedContent = processedContent.replace(dataUrl, filePath)
-          }
-        }
-      }
-    }
 
     const updatedItem = await updateItem(id, {
       ...updates,
@@ -73,15 +56,6 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const { id } = await params
-    
-    // Prima recupera l'item per pulire le immagini
-    const items = await getItems()
-    const item = items.find(item => item.id === id)
-    
-    if (item && item.content) {
-      cleanupItemImages(item.content)
-    }
-
     const success = await deleteItem(id)
 
     if (!success) {

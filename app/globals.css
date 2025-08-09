@@ -224,6 +224,31 @@ div[dangerouslySetInnerHTML] > *:first-child iframe {
   padding: 8px !important;
   background: white !important;
   border: none !important;
+  /* Evita il salto su mobile */
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Toolbar fissa su mobile */
+@supports (-webkit-sticky: top) {
+  .sticky {
+    position: -webkit-sticky;
+  }
+}
+
+/* Evita zoom su input mobile */
+@media screen and (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+  
+  .ProseMirror {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
 }
 
 /* Stili per i titoli nell'editor e nel contenuto */

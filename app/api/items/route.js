@@ -1,4 +1,4 @@
-import { getItems, addItem, saveImageFile } from '../../../lib/data'
+import { getItems, addItem } from '../../../lib/data'
 
 export async function GET() {
   try {
@@ -24,28 +24,8 @@ export async function POST(request) {
       )
     }
 
-    // Processa il contenuto per salvare le immagini come file
+    // Su Netlify manteniamo le immagini come Base64 nel JSON
     let processedContent = itemData.content
-    
-    if (processedContent) {
-      // Trova tutte le immagini data URL nel contenuto
-      const dataUrlMatches = processedContent.match(/src="data:image\/[^"]+"/g)
-      
-      if (dataUrlMatches) {
-        // Genera un ID temporaneo per l'item
-        const tempId = Date.now().toString(36) + Math.random().toString(36).substr(2)
-        
-        for (const match of dataUrlMatches) {
-          const dataUrl = match.replace(/src="|"/g, '')
-          const filePath = saveImageFile(dataUrl, tempId)
-          
-          if (filePath) {
-            // Sostituisci il data URL con il path del file
-            processedContent = processedContent.replace(dataUrl, filePath)
-          }
-        }
-      }
-    }
 
     const newItem = await addItem({
       ...itemData,

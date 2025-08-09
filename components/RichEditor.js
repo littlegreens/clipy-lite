@@ -100,7 +100,7 @@ const MenuBar = ({ editor }) => {
   if (!editor) return null
 
   return (
-    <div className="sticky top-0 z-20 border-b border-surface-300 p-2 bg-white shadow-sm -mx-2 px-4">
+          <div className="sticky top-0 z-20 border-b border-surface-300 p-2 bg-white shadow-sm -mx-2 px-4" style={{position: '-webkit-sticky'}}>
       {/* Tutti i bottoni su una riga */}
       <div className="flex flex-wrap gap-1">
         <button
