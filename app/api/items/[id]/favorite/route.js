@@ -1,25 +1,18 @@
-import { dbQueries } from '../../../../../lib/database'
+import { toggleFavorite } from '../../../../../lib/data'
 
 export async function POST(request, { params }) {
   try {
     const { id } = await params
-    
-    // Verifica che l'item esista
-    const item = dbQueries.getItemById.get(id)
+    const item = await toggleFavorite(id)
+
     if (!item) {
       return Response.json(
         { message: 'Item non trovato' }, 
         { status: 404 }
       )
     }
-    
-    // Toggle favorite
-    dbQueries.toggleFavorite.run(id)
-    
-    // Restituisci l'item aggiornato
-    const updatedItem = dbQueries.getItemById.get(id)
-    return Response.json(updatedItem)
-    
+
+    return Response.json(item)
   } catch (error) {
     console.error('Errore toggle favorite:', error)
     return Response.json(

@@ -78,7 +78,7 @@ export default function LoginPage() {
         >
           <div>
             <label className="block text-sm font-medium text-surface-800 mb-2">
-              Nome
+              Nome/Email
             </label>
             <input
               type="text"

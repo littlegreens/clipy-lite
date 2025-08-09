@@ -5,6 +5,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Youtube from '@tiptap/extension-youtube'
+import Heading from '@tiptap/extension-heading'
 import { useState, useCallback, useEffect } from 'react'
 import MaterialIcon from './icons/MaterialIcon'
 
@@ -12,7 +13,7 @@ const MenuBar = ({ editor }) => {
   const [showLinkInput, setShowLinkInput] = useState(false)
   const [linkUrl, setLinkUrl] = useState('')
   const [showImageInput, setShowImageInput] = useState(false)
-  const [imageUrl, setImageUrl] = useState('')
+
   const [showYouTubeInput, setShowYouTubeInput] = useState(false)
   const [youtubeUrl, setYoutubeUrl] = useState('')
 
@@ -123,6 +124,16 @@ const MenuBar = ({ editor }) => {
           <MaterialIcon name="format_italic" size="18" className="text-current" />
         </button>
         <button
+          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          className={`p-2 rounded transition-colors ${
+            editor.isActive('heading', { level: 1 }) 
+              ? 'bg-surface-200 font-bold text-surface-900' 
+              : 'text-surface-700 hover:bg-surface-100'
+          }`}
+        >
+          <span className="text-current font-bold text-sm">H1</span>
+        </button>
+        <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           className={`p-2 rounded transition-colors ${
             editor.isActive('heading', { level: 2 }) 
@@ -130,7 +141,7 @@ const MenuBar = ({ editor }) => {
               : 'text-surface-700 hover:bg-surface-100'
           }`}
         >
-          <MaterialIcon name="title" size="18" className="text-current" />
+          <span className="text-current font-bold text-sm">H2</span>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -261,11 +272,16 @@ export default function RichEditor({ content, onChange, placeholder = "Scrivi qu
   
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        heading: false, // Disabilita heading in StarterKit per usare la nostra configurazione
+      }),
+      Heading.configure({
+        levels: [1, 2],
+      }),
       Image.configure({
         HTMLAttributes: {
-          class: 'w-full max-w-md h-auto rounded-lg mx-auto block cursor-pointer',
-          style: 'margin-top: 24px; margin-bottom: 0;',
+          class: 'w-full h-auto rounded-lg cursor-pointer',
+          style: 'margin-top: 24px; margin-bottom: 0; width: 100% !important; max-width: 100% !important;',
         },
         allowBase64: true,
         inline: false,

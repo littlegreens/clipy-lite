@@ -1,25 +1,18 @@
-import { dbQueries } from '../../../../../lib/database'
+import { toggleComplete } from '../../../../../lib/data'
 
 export async function POST(request, { params }) {
   try {
     const { id } = await params
-    
-    // Verifica che l'item esista
-    const item = dbQueries.getItemById.get(id)
+    const item = await toggleComplete(id)
+
     if (!item) {
       return Response.json(
         { message: 'Item non trovato' }, 
         { status: 404 }
       )
     }
-    
-    // Toggle complete
-    dbQueries.toggleComplete.run(id)
-    
-    // Restituisci l'item aggiornato
-    const updatedItem = dbQueries.getItemById.get(id)
-    return Response.json(updatedItem)
-    
+
+    return Response.json(item)
   } catch (error) {
     console.error('Errore toggle complete:', error)
     return Response.json(

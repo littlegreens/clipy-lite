@@ -206,6 +206,8 @@ div[dangerouslySetInnerHTML] img,
 div[dangerouslySetInnerHTML] iframe {
   margin-top: 1.5rem !important;
   margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Primo elemento senza margin top */
@@ -222,6 +224,35 @@ div[dangerouslySetInnerHTML] > *:first-child iframe {
   padding: 8px !important;
   background: white !important;
   border: none !important;
+}
+
+/* Stili per i titoli nell'editor e nel contenuto */
+.ProseMirror h1,
+div[dangerouslySetInnerHTML] h1 {
+  font-size: 1.875rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.ProseMirror h2,
+div[dangerouslySetInnerHTML] h2 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.75rem !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Primo titolo senza margin top */
+.ProseMirror > h1:first-child,
+.ProseMirror > h2:first-child,
+div[dangerouslySetInnerHTML] > h1:first-child,
+div[dangerouslySetInnerHTML] > h2:first-child {
+  margin-top: 0 !important;
 }
 
 /* Permetti di scrivere dopo immagini/video */
@@ -270,4 +301,6 @@ img.w-full.max-w-md,
 div[data-youtube-video] {
   margin-top: 24px !important;
   margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }

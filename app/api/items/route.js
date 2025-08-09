@@ -1,18 +1,8 @@
-import { dbQueries, generateId, saveImageFile } from '../../../lib/database'
-
-// Funzione per convertire le date SQLite in formato JavaScript
-function formatItemDates(item) {
-  return {
-    ...item,
-    createdAt: item.created_at ? new Date(item.created_at).toISOString() : null,
-    updatedAt: item.updated_at ? new Date(item.updated_at).toISOString() : null,
-  }
-}
+import { getItems, addItem, saveImageFile } from '../../../lib/data'
 
 export async function GET() {
   try {
-    const rawItems = dbQueries.getAllItems.all()
-    const items = rawItems.map(formatItemDates)
+    const items = await getItems()
     return Response.json({ items })
   } catch (error) {
     console.error('Errore get items:', error)
@@ -29,46 +19,50 @@ export async function POST(request) {
     
     if (!itemData.title || !itemData.category) {
       return Response.json(
-        { message: 'Titolo e categoria richiesti' }, 
+        { message: 'Dati mancanti' }, 
         { status: 400 }
       )
     }
+
+    // Processa il contenuto per salvare le immagini come file
+    let processedContent = itemData.content
     
-    const itemId = generateId()
-    
-    // Processa le immagini nel contenuto
-    let processedContent = itemData.content || ''
-    const imgMatches = processedContent.match(/src="data:image\/[^"]+"/g)
-    
-    if (imgMatches) {
-      for (const match of imgMatches) {
-        const dataUrl = match.replace(/src="|"/g, '')
-        const imagePath = saveImageFile(dataUrl, itemId)
-        if (imagePath) {
-          processedContent = processedContent.replace(dataUrl, imagePath)
+    if (processedContent) {
+      // Trova tutte le immagini data URL nel contenuto
+      const dataUrlMatches = processedContent.match(/src="data:image\/[^"]+"/g)
+      
+      if (dataUrlMatches) {
+        // Genera un ID temporaneo per l'item
+        const tempId = Date.now().toString(36) + Math.random().toString(36).substr(2)
+        
+        for (const match of dataUrlMatches) {
+          const dataUrl = match.replace(/src="|"/g, '')
+          const filePath = saveImageFile(dataUrl, tempId)
+          
+          if (filePath) {
+            // Sostituisci il data URL con il path del file
+            processedContent = processedContent.replace(dataUrl, filePath)
+          }
         }
       }
     }
-    
-    // Salva nel database
-    dbQueries.insertItem.run(
-      itemId,
-      itemData.title,
-      processedContent,
-      itemData.category,
-      itemData.userId || 'user1', // Default user
-      0, // favorite (0 = false)
-      0, // completed (0 = false)
-      0  // order_index
-    )
-    
-    // Restituisci l'item creato
-    const rawItem = dbQueries.getItemById.get(itemId)
-    const newItem = formatItemDates(rawItem)
-    return Response.json(newItem, { status: 201 })
-    
+
+    const newItem = await addItem({
+      ...itemData,
+      content: processedContent,
+      userId: itemData.userId || 'user1'
+    })
+
+    if (newItem) {
+      return Response.json(newItem, { status: 201 })
+    } else {
+      return Response.json(
+        { message: 'Errore creazione item' }, 
+        { status: 500 }
+      )
+    }
   } catch (error) {
-    console.error('Errore add item:', error)
+    console.error('Errore creazione item:', error)
     return Response.json(
       { message: 'Errore server: ' + error.message }, 
       { status: 500 }

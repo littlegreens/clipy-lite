@@ -1,8 +1,8 @@
-import { dbQueries } from '../../../lib/database'
+import { getCategories } from '../../../lib/data'
 
 export async function GET() {
   try {
-    const categories = dbQueries.getAllCategories.all()
+    const categories = await getCategories()
     return Response.json({ categories })
   } catch (error) {
     console.error('Errore get categories:', error)
